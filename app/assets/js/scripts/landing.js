@@ -86,7 +86,7 @@ function setLaunchEnabled(val){
 // Bind launch button
 document.getElementById('launch_button').addEventListener('click', function(e){
     loggerLanding.log('Launching game..')
-    const mcVersion = DistroManager.getDistribution().getServer(ConfigManager.getSelectedServer()).getMinecraftVersion()
+    const mcVersion = DistroManager.getDistribution().getServer("Aromencia-1.12.2").getMinecraftVersion()
     const jExe = ConfigManager.getJavaExecutable()
     if(jExe == null){
         asyncSystemScan(mcVersion)
@@ -144,17 +144,8 @@ function updateSelectedServer(serv){
     }
     ConfigManager.setSelectedServer(serv != null ? serv.getID() : null)
     ConfigManager.save()
-    server_selection_button.innerHTML = '\u2022 ' + (serv != null ? serv.getName() : 'No Server Selected')
-    if(getCurrentView() === VIEWS.settings){
-        animateModsTabRefresh()
-    }
+    server_selection_button.innerHTML = '\u2022 ' + "AROMENCIA SERVEUR"
     setLaunchEnabled(serv != null)
-}
-// Real text is set in uibinder.js on distributionIndexDone.
-server_selection_button.innerHTML = '\u2022 Loading..'
-server_selection_button.onclick = (e) => {
-    e.target.blur()
-    toggleServerSelection(true)
 }
 
 // Update Mojang Status Color
@@ -218,7 +209,7 @@ const refreshMojangStatuses = async function(){
 
 const refreshServerStatus = async function(fade = false){
     loggerLanding.log('Refreshing Server Status')
-    const serv = DistroManager.getDistribution().getServer(ConfigManager.getSelectedServer())
+    const serv = DistroManager.getDistribution().getServer("Aromencia-1.12.2")
 
     let pLabel = 'SERVER'
     let pVal = 'OFFLINE'
@@ -739,14 +730,14 @@ function dlAsync(login = true){
 
     refreshDistributionIndex(true, (data) => {
         onDistroRefresh(data)
-        serv = data.getServer(ConfigManager.getSelectedServer())
-        aEx.send({task: 'execute', function: 'validateEverything', argsArr: [ConfigManager.getSelectedServer(), DistroManager.isDevMode()]})
+        serv = data.getServer("Aromencia-1.12.2")
+        aEx.send({task: 'execute', function: 'validateEverything', argsArr: ["Aromencia-1.12.2", DistroManager.isDevMode()]})
     }, (err) => {
         loggerLaunchSuite.log('Error while fetching a fresh copy of the distribution index.', err)
         refreshDistributionIndex(false, (data) => {
             onDistroRefresh(data)
-            serv = data.getServer(ConfigManager.getSelectedServer())
-            aEx.send({task: 'execute', function: 'validateEverything', argsArr: [ConfigManager.getSelectedServer(), DistroManager.isDevMode()]})
+            serv = data.getServer("Aromencia-1.12.2")
+            aEx.send({task: 'execute', function: 'validateEverything', argsArr: ["Aromencia-1.12.2", DistroManager.isDevMode()]})
         }, (err) => {
             loggerLaunchSuite.error('Unable to refresh distribution index.', err)
             if(DistroManager.getDistribution() == null){
@@ -755,8 +746,8 @@ function dlAsync(login = true){
                 // Disconnect from AssetExec
                 aEx.disconnect()
             } else {
-                serv = data.getServer(ConfigManager.getSelectedServer())
-                aEx.send({task: 'execute', function: 'validateEverything', argsArr: [ConfigManager.getSelectedServer(), DistroManager.isDevMode()]})
+                serv = data.getServer("Aromencia-1.12.2")
+                aEx.send({task: 'execute', function: 'validateEverything', argsArr: ["Aromencia-1.12.2", DistroManager.isDevMode()]})
             }
         })
     })

@@ -45,5 +45,10 @@
                 "pleaseWait": "Please wait.."
             }
         }
+    },
+    "elements": {
+        "login": {
+            "loginPassword": "PASSWORD"
+        }
     }
 }
